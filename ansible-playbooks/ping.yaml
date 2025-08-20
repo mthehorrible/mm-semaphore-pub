@@ -1,0 +1,29 @@
+---
+- hosts: localhost
+  become: false
+  gather_facts: false
+
+  tasks:
+
+    - name: Ping site
+      shell:
+        cmd: "ping -c 1 -w 2 google.com"
+      register: ping_result
+
+    - name: Ping result
+      debug:
+        msg: "{{ ping_result.stdout_lines }}"
+
+    - name: Send email report
+      community.general.mail:
+        host: "{{ email_svr }}"
+        port: "{{ email_port }}"
+        username: "{{ email_un }}"
+        password: "{{ email_pw }}"
+        from: "{{ email_from }}"
+        to: "{{ email_to }}"
+        subject: Ping playbook results
+        body: "{{ ping_result.stdout_lines }}"
+        secure: always
+      delegate_to: localhost
+...
