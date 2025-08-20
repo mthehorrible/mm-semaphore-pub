@@ -7,7 +7,7 @@
 
     - name: Ping site
       shell:
-        cmd: "ping -c 1 -w 2 google.com"
+        cmd: "ping -c 1 -w 2 {{ site }}"
       register: ping_result
 
     - name: Ping result
