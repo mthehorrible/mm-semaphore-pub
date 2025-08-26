@@ -1,0 +1,16 @@
+---
+- hosts: all
+
+  tasks:
+
+    - name: Start container
+      community.general.proxmox:
+        vmid: "{{ item }}"
+        api_user: "{{ api_user }}"
+        api_password: "{{ api_pw }}"
+        api_host: "{{ api_host }}"
+        #api_token_id: "{{ api_token_id }}"
+        #api_token_secret: "{{ api_token_secret }}"
+        state: started
+      with_items: "{{ vmids }}" 
+...
