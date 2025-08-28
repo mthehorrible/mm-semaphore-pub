@@ -1,0 +1,42 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+
+    - name: Install latest apt updates
+      apt:
+        force_apt_get: yes
+        update_cache: yes
+        upgrade: dist
+      when: ( ansible_distribution == "Debian" ) or
+            ( ansible_distribution == "Linux Mint" ) or
+            ( ansible_distribution == "Pop!_OS" ) or
+            ( ansible_distribution == "Ubuntu" )
+      tags: always
+
+    - name: Remove unneeded packages (apt)
+      apt:
+        force_apt_get: yes
+        autoremove: yes
+      when: ( ansible_distribution == "Debian" ) or
+            ( ansible_distribution == "Linux Mint" ) or
+            ( ansible_distribution == "Pop!_OS" ) or
+            ( ansible_distribution == "Ubuntu" )
+      tags: always
+
+    - name: Install latest dnf updates
+      dnf:
+        name: '*'
+        state: latest
+      when: ( ansible_distribution == "RedHat" ) or 
+            ( ansible_distribution == "Rocky" ) or
+            ( ansible_distribution == "CentOS" ) or
+            ( ansible_distribution == "Fedora" )
+      tags: always
+
+    - name: Reboot machines (only if reboot tag used)
+      reboot:
+        post_reboot_delay: 5
+        connect_timeout: 120
+      tags: [ never, reboot ]
+...
