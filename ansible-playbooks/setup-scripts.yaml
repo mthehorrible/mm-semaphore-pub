@@ -11,7 +11,13 @@
     
   - name: Make sure show system info script exists
     ansible.builtin.get_url:
-      url: "https://github.com/mthehorrible/scripts/blob/main/bash/show-system-info.sh"
+      url: "https://raw.githubusercontent.com/mthehorrible/scripts/main/bash/show-system-info.sh"
+      dest: "/data/scripts/show-system-info.sh"
+      mode: '0744'
+
+  - name: Make sure update script exists
+    ansible.builtin.get_url:
+      url: "https://raw.githubusercontent.com/mthehorrible/scripts/main/bash/update-system.sh"
       dest: "/data/scripts/show-system-info.sh"
       mode: '0744'
 ...
