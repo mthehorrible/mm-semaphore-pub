@@ -17,8 +17,8 @@
 
   - name: Create showInfo.sh symlink
     ansible.builtin.file:
-      src: "/home/{{ ansible_user }}/showInfo.sh"
-      dest: "/data/scripts/show-system-info.sh"
+      src: "/data/scripts/show-system-info.sh"
+      dest: "/home/{{ ansible_user }}/showInfo.sh"
       state: link
 
   - name: Copy update-system.sh from Github
