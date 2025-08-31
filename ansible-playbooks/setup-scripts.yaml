@@ -27,6 +27,12 @@
       dest: "/data/scripts/update-system.sh"
       mode: "0744"
 
+  - name: Create update.sh symlink
+    ansible.builtin.file:
+      src: "/data/scripts/update-system.sh"
+      dest: "/home/{{ ansible_user }}/update.sh"
+      state: link
+
   - name: Create script to check for low disk space
     ansible.builtin.copy:
       dest: "/data/scripts/low-disk-space-alert.sh"
@@ -43,4 +49,11 @@
           fi
         done
       mode: "0744"
+
+  - name: Create cron job to run low disk space check"
+    ansible.builtin.cron:
+      name: "check free disk space"
+      minute: "0"
+      hour: "13"
+      job: "/data/scripts/low-disk-space-alert.sh > /dev/null"
 ...
