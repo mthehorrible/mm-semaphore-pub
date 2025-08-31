@@ -9,15 +9,32 @@
       state: directory
       owner: "{{ ansible_user }}"
     
-  - name: Make sure show system info script exists
+  - name: Copy show-system-info.sh from Github
     ansible.builtin.get_url:
       url: "https://raw.githubusercontent.com/mthehorrible/scripts/main/bash/show-system-info.sh"
       dest: "/data/scripts/show-system-info.sh"
-      mode: '0744'
+      mode: "0744"
 
-  - name: Make sure update script exists
+  - name: Copy update-system.sh from Github
     ansible.builtin.get_url:
       url: "https://raw.githubusercontent.com/mthehorrible/scripts/main/bash/update-system.sh"
-      dest: "/data/scripts/show-system-info.sh"
-      mode: '0744'
+      dest: "/data/scripts/update-system.sh"
+      mode: "0744"
+
+  - name: Create script to check for low disk space
+    ansible.builtin.copy:
+      dest: "/data/scripts/low-disk-space-alert.sh"
+      content: |
+        #!/bin/sh
+        THRESHOLD=90
+
+        df -PkH | grep -vE '^Filesystem|tmpfs|cdrom|media' | awk '{ print $5 " " $6 }' | while read output;
+        do
+          usep=$(echo $output | awk '{ print $1}' | cut -d'%' -f1 )
+          partition=$(echo $output | awk '{print $2}' )
+          if [ $usep -ge $THRESHOLD ]; then
+            curl "{{ gotify_url }}" -F "title=Alert: $(hostname) disk usage" -F "message=Running out of space \"$partition ($usep%)\" on $(hostname)" -F "priority=5"
+          fi
+        done
+      mode: "0744"
 ...
