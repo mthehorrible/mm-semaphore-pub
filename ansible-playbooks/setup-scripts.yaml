@@ -1,0 +1,17 @@
+---
+- hosts: all
+  tasks:
+
+  - name: Make sure scripts folder exists
+    become: yes
+    ansible.builtin.file:
+      path: "/data/scripts"
+      state: directory
+      owner: "{{ ansible_user }}"
+    
+  - name: Make sure show system info script exists
+    ansible.builtin.get_url:
+      url: "https://github.com/mthehorrible/scripts/blob/main/bash/show-system-info.sh"
+      dest: "/data/scripts/show-system-info.sh"
+      mode: '0744'
+...
