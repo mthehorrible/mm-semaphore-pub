@@ -15,6 +15,12 @@
       dest: "/data/scripts/show-system-info.sh"
       mode: "0744"
 
+  - name: Create showInfo.sh symlink
+    ansible.builtin.file:
+      src: "/home/{{ ansible_user }}/showInfo.sh"
+      dest: "/data/scripts/show-system-info.sh"
+      state: link
+
   - name: Copy update-system.sh from Github
     ansible.builtin.get_url:
       url: "https://raw.githubusercontent.com/mthehorrible/scripts/main/bash/update-system.sh"
