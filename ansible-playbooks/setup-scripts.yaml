@@ -51,6 +51,7 @@
       mode: "0744"
 
   - name: Create cron job to run low disk space check"
+    become: yes
     ansible.builtin.cron:
       name: "check free disk space"
       minute: "0"
