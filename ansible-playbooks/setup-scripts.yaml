@@ -51,6 +51,7 @@
       mode: "0744"
 
   - name: Make sure cron is installed
+    become: yes
     ansible.builtin.package:
       name: cron
       state: present
