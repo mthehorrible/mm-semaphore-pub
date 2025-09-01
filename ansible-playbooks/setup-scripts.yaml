@@ -50,11 +50,16 @@
         done
       mode: "0744"
 
-  - name: Make sure cron is installed
+  - name: Make sure cron is installed (if using apt)
     become: yes
-    ansible.builtin.package:
+    ansible.builtin.apt:
       name: cron
-      state: present
+      update_cache: yes
+      state: latest
+    when: ( ansible_distribution == "Debian" ) or
+          ( ansible_distribution == "Linux Mint" ) or
+          ( ansible_distribution == "Pop!_OS" ) or
+          ( ansible_distribution == "Ubuntu" )
 
   - name: Create cron job to run low disk space check"
     ansible.builtin.cron:
