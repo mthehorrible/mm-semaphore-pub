@@ -1,0 +1,7 @@
+---
+- name: Ping machines
+  hosts: all
+  gather_facts: false
+  tasks:
+    - win_ping:
+...

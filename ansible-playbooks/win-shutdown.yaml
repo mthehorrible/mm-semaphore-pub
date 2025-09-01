@@ -1,0 +1,8 @@
+---
+- name: Shutdown Windows machines
+  hosts: all
+  tasks:
+  - name: Shutdown Windows PC
+    ansible.windows.win_command:
+      cmd: shutdown -s -f -t 0
+...
