@@ -1,5 +1,6 @@
 ---
-- hosts: ll
+- hosts: all
+
   vars:
     current_time: "{{ now(fmt='%Y.%m.%d-%H.%M') }}"
     dest_file: "{{ container }}-backup-{{ current_time }}.tgz"
@@ -19,5 +20,4 @@
     community.docker.docker_container:
       name: "{{ container }}"
       state: started
-
 ...
