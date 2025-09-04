@@ -1,0 +1,32 @@
+---
+- hosts: all
+
+  tasks:
+
+    - name: Update image
+      community.docker.docker_image_pull:
+        name: "{{ image }}"
+        platform: "{{ platform }}"
+
+    - name: Run "docker compose down"
+      community.docker.docker_compose_v2:
+        project_src: "{{ compose_folder }}"
+        files: "{{ compose_file }}"
+        state: absent
+      register: dcd_output
+
+    - name: Show "docker compose down" results
+      ansible.builtin.debug:
+        var: dcd_output
+
+    - name: Run "docker compose up"
+      community.docker.docker_compose_v2:
+        project_src: "{{ compose_folder }}"
+        files: "{{ compose_file }}"
+        state: present
+      register: dcu_output
+
+    - name: Show "docker compose up" results
+      ansible.builtin.debug:
+        var: dcu_output
+...

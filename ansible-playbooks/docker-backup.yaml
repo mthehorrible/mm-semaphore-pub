@@ -1,0 +1,23 @@
+---
+- hosts: ll
+  vars:
+    current_time: "{{ now(fmt='%Y.%m.%d-%H.%M') }}"
+    dest_file: "{{ container }}-backup-{{ current_time }}.tgz"
+  tasks:
+
+  - name: Stop container
+    community.docker.docker_container:
+      name: "{{ container }}"
+      state: stopped
+
+  - name: Create backup
+    community.general.archive:
+      path: "{{ src_dir }}"
+      dest: "{{ dest_dir }}/{{ dest_file }}"
+
+  - name: Start container
+    community.docker.docker_container:
+      name: "{{ container }}"
+      state: started
+
+...
