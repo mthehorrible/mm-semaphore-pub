@@ -6,4 +6,9 @@
     ansible.windows.win_updates:
       category_names: '*'
       reboot: true
+
+  - name: Update all packages installed through Chocolatey
+    win_chocolatey:
+      name: all
+      state: latest
 ...
