@@ -1,0 +1,9 @@
+---
+- hosts: all
+  tasks:
+
+  - name: Ensure user administrator is disabled
+    ansible.windows.win_user:
+      name: administrator
+      account_disabled: true
+...

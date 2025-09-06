@@ -1,0 +1,60 @@
+---
+# ansible-playbook -i hosts if-os-then.yaml
+- hosts: all
+  tasks:
+
+    - name: Check for CentOS Linux
+      debug:
+        msg: "This machine is running {{ ansible_distribution }} {{ ansible_distribution_version}}"
+      when: ansible_facts['distribution'] == "CentOS"
+
+    - name: Check for Debian Linux
+      debug:
+        msg: "This machine is running {{ ansible_distribution }} {{ ansible_distribution_version}}"
+      when: ansible_facts['distribution'] == "Debian"
+
+    - name: Check for RedHat Linux
+      debug:
+        msg: "This machine is running {{ ansible_distribution }} {{ ansible_distribution_version}}"
+      when: ansible_facts['distribution'] == "RedHat"
+
+    - name: Check for Rocky Linux
+      debug:
+        msg: "This machine is running {{ ansible_distribution }} {{ ansible_distribution_version}}"
+      when: ansible_facts['distribution'] == "Rocky"
+
+    - name: Check for Ubuntu Linux
+      debug:
+        msg: "This machine is running {{ ansible_distribution }} {{ ansible_distribution_version}}"
+      when: ansible_facts['distribution'] == "Ubuntu"
+
+    - name: Check for Windows 10
+      debug:
+        msg: "This machine is running {{ ansible_distribution }} {{ ansible_distribution_version}}"
+      when: ansible_facts['distribution'] is match("Microsoft Windows 10")
+
+    - name: Check for Windows 11
+      debug:
+        msg: "This machine is running {{ ansible_distribution }} {{ ansible_distribution_version}}"
+      when: ansible_facts['distribution'] is match("Microsoft Windows 11")
+      
+    - name: Check for Windows 2016
+      debug:
+        msg: "This machine is running {{ ansible_distribution }} {{ ansible_distribution_version}}"
+      when: ansible_facts['distribution'] is match("Microsoft Windows Server 2016")
+
+    - name: Check for Windows 2019
+      debug:
+        msg: "This machine is running {{ ansible_distribution }} {{ ansible_distribution_version}}"
+      when: ansible_facts['distribution'] is match("Microsoft Windows Server 2019")
+
+    - name: Check for Windows 2022
+      debug:
+        msg: "This machine is running {{ ansible_distribution }} {{ ansible_distribution_version}}"
+      when: ansible_facts['distribution'] is match("Microsoft Windows Server 2022")
+
+    - name: Check for Windows 2025
+      debug:
+        msg: "This machine is running {{ ansible_distribution }} {{ ansible_distribution_version}}"
+      when: ansible_facts['distribution'] is match("Microsoft Windows Server 2025")
+...
