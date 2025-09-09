@@ -22,9 +22,9 @@
     ansible.builtin.dnf:
       name: epel-release
       state: present
-    when: ( ansible_distribution == "RedHat" and ansible_distribution_major_version >= "8" ) or 
+    when: ( ansible_distribution == "RedHat" ) or 
           ( ansible_distribution == "Rocky" ) or
-          ( ansible_distribution == "CentOS" and ansible_distribution_major_version >= "9" ) or
+          ( ansible_distribution == "CentOS" ) or
           ( ansible_distribution == "Fedora" )
 
   - name: Install base packages using DNF
@@ -33,8 +33,8 @@
       update_cache: yes
       state: latest
     with_items: "{{ packages }}" 
-    when: ( ansible_distribution == "RedHat" and ansible_distribution_major_version >= "8" ) or 
+    when: ( ansible_distribution == "RedHat" ) or 
           ( ansible_distribution == "Rocky" ) or
-          ( ansible_distribution == "CentOS" and ansible_distribution_major_version >= "9" ) or
+          ( ansible_distribution == "CentOS" ) or
           ( ansible_distribution == "Fedora" )
 ...
