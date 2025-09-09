@@ -18,6 +18,15 @@
     when: ( ansible_distribution == "Debian" ) or 
           ( ansible_distribution == "Ubuntu" )
 
+  - name: Install package epel-release
+    ansible.builtin.dnf:
+      name: epel-release
+      state: present
+    when: ( ansible_distribution == "RedHat" and ansible_distribution_major_version >= "8" ) or 
+          ( ansible_distribution == "Rocky" ) or
+          ( ansible_distribution == "CentOS" and ansible_distribution_major_version >= "9" ) or
+          ( ansible_distribution == "Fedora" )
+
   - name: Install base packages using DNF
     ansible.builtin.dnf:
       name: "{{ item }}"
