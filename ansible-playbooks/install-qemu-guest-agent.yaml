@@ -1,6 +1,7 @@
 ---
 - hosts: all
-  become: yes
+  become: true
+
   tasks:
 
   - name: Install qemu guest agent using APT
@@ -13,6 +14,13 @@
           ( ansible_distribution == "Pop!_OS" ) or
           ( ansible_distribution == "Ubuntu" )
 
+  - name: Install qemu guest agent using YUM
+    ansible.builtin.yum:
+      name: qemu-guest-agent
+      update_cache: yes
+      state: latest
+    when: ( ansible_distribution == "CentOS" and ansible_distribution_major_version <= "7" )
+
   - name: Install qemu guest agent using DNF
     ansible.builtin.dnf:
       name: qemu-guest-agent
@@ -20,6 +28,5 @@
       state: latest
     when: ( ansible_distribution == "RedHat" ) or 
           ( ansible_distribution == "Rocky" ) or
-          ( ansible_distribution == "CentOS" ) or
           ( ansible_distribution == "Fedora" )
 ...
