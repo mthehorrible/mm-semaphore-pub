@@ -1,5 +1,6 @@
 ---
 - hosts: all
+  become: true
 
   vars:
     current_time: "{{ now(fmt='%Y.%m.%d-%H.%M') }}"
