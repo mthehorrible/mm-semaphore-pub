@@ -9,9 +9,9 @@
       state: directory
       owner: "{{ ansible_user }}"
     
-  - name: Copy show-system-info.sh from Github
+  - name: Copy show-system-info.sh from git
     ansible.builtin.get_url:
-      url: "https://raw.githubusercontent.com/mthehorrible/scripts/main/bash/show-system-info.sh"
+      url: "https://codeberg.org/mmilliman/bash-scripts/raw/branch/main/show-system-info.sh"
       dest: "/data/scripts/show-system-info.sh"
       mode: "0744"
 
@@ -21,9 +21,9 @@
       dest: "/home/{{ ansible_user }}/showInfo.sh"
       state: link
 
-  - name: Copy update-system.sh from Github
+  - name: Copy update-system.sh from git
     ansible.builtin.get_url:
-      url: "https://raw.githubusercontent.com/mthehorrible/scripts/main/bash/update-system.sh"
+      url: "https://codeberg.org/mmilliman/bash-scripts/raw/branch/main/update-system.sh"
       dest: "/data/scripts/update-system.sh"
       mode: "0744"
 
