@@ -10,6 +10,7 @@
         update_cache: yes
         upgrade: dist
       when: ( ansible_distribution == "Debian" ) or
+            ( ansible_distribution == "LMDE" ) or
             ( ansible_distribution == "Linux Mint" ) or
             ( ansible_distribution == "Pop!_OS" ) or
             ( ansible_distribution == "Ubuntu" )
@@ -20,6 +21,7 @@
         force_apt_get: yes
         autoremove: yes
       when: ( ansible_distribution == "Debian" ) or
+            ( ansible_distribution == "LMDE" ) or
             ( ansible_distribution == "Linux Mint" ) or
             ( ansible_distribution == "Pop!_OS" ) or
             ( ansible_distribution == "Ubuntu" )
